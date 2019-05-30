@@ -5,8 +5,8 @@
   "license": "MIT",
   "dependencies": {},
   "scripts": {
-    "build": "./node_modules/.bin/babel src/playground/counter-example.js --out-file=public/scripts/app.js --watch",
-    "server": "live-server public"
+    "build": "./node_modules/.bin/babel src/app.js --out-file=public/scripts/app.js --watch",
+    "server": "live-server public --browser='Google Chrome'"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -15,4 +15,3 @@
     "@babel/preset-react": "^7.0.0"
   }
 }
-
