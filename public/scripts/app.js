@@ -30,10 +30,11 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(IndecisionApp).call(this, props));
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_assertThisInitialized(_this));
     _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     _this.state = {
-      options: []
+      options: props.options
     };
     return _this;
   }
@@ -44,6 +45,17 @@ function (_React$Component) {
       this.setState(function () {
         return {
           options: []
+        };
+      });
+    }
+  }, {
+    key: "handleDeleteOption",
+    value: function handleDeleteOption(optionToRemove) {
+      this.setState(function (prevState) {
+        return {
+          options: prevState.options.filter(function (option) {
+            return optionToRemove !== option;
+          })
         };
       });
     }
@@ -82,7 +94,8 @@ function (_React$Component) {
         handlePick: this.handlePick
       }), React.createElement(Options, {
         options: this.state.options,
-        handleDeleteOptions: this.handleDeleteOptions
+        handleDeleteOptions: this.handleDeleteOptions,
+        handleDeleteOption: this.handleDeleteOption
       }), React.createElement(AddOption, {
         handleAddOption: this.handleAddOption
       }));
@@ -92,9 +105,17 @@ function (_React$Component) {
   return IndecisionApp;
 }(React.Component);
 
+IndecisionApp.defaultProps = {
+  options: []
+};
+
 var Header = function Header(props) {
-  return React.createElement("div", null, React.createElement("h1", null, props.title), React.createElement("h2", null, props.subtitle));
+  return React.createElement("div", null, React.createElement("h1", null, props.title), props.subtitle && React.createElement("h2", null, props.subtitle));
   ;
+};
+
+Header.defaultProps = {
+  title: 'some default'
 };
 
 var Action = function Action(props) {
@@ -110,13 +131,18 @@ var Options = function Options(props) {
   }, "Remove All"), props.options.map(function (option) {
     return React.createElement(Option, {
       key: option,
-      optionText: option
+      optionText: option,
+      handleDeleteOption: props.handleDeleteOption
     });
   }));
 };
 
 var Option = function Option(props) {
-  return React.createElement("div", null, React.createElement("p", null, props.optionText));
+  return React.createElement("div", null, props.optionText, React.createElement("button", {
+    onClick: function onClick(e) {
+      props.handleDeleteOption(props.optionText);
+    }
+  }, "Remove"));
 };
 
 var AddOption =
@@ -162,14 +188,6 @@ function (_React$Component2) {
   }]);
 
   return AddOption;
-}(React.Component); // const User = (props) => {
-//   return (
-//     <div>
-//       <p>Name: {props.name}</p>
-//       <p>Age: {props.age}</p>
-//     </div>
-//   )
-// };
-
+}(React.Component);
 
 ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
