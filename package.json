@@ -2,16 +2,27 @@
   "name": "indecision-app",
   "version": "1.0.0",
   "main": "index.js",
+  "author": "Simon Barrett",
   "license": "MIT",
-  "dependencies": {},
-  "scripts": {
-    "build": "./node_modules/.bin/babel src/app.js --out-file=public/scripts/app.js --watch",
-    "server": "live-server public --browser='Google Chrome'"
-  },
-  "devDependencies": {
+  "repository": "https://github.com/mightymango/Indecision-App.git",
+  "dependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "live-server": "^1.2.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "validator": "^11.0.0",
+    "webpack": "^4.32.2"
+  },
+  "scripts": {
+    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --watch",
+    "serve": "live-server public/ --browser='Google Chrome'",
+    "build": "webpack --watch"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.2"
   }
 }
